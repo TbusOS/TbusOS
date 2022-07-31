@@ -1,5 +1,8 @@
 ### Hi there 👋
 
+1.Run the --help option for each script to see how they are used. 
+2.It should be noted that the TbusOS path in the current script needs to be specified by yourself.
+
 <!--
 **TbusOS/TbusOS** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
