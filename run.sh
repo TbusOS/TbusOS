@@ -1,8 +1,10 @@
 #!/bin/bash
 
-# Build system.
+# run TbusOS.
 #
-# (C) 2022.07.21 TbusOS by liaowenxiong(571550728@qq.com)
+# Copyright (C) 2022.07.31 by liaowenxiong <571550728@qq.com>
+#
+# SPDX-License-Identifier: GPL-2.0
 
 TbusOS=/home/ubuntu/TbusOS
 QEMU=${TbusOS}/qemu/qemu_build/qemu-system-arm

@@ -1,8 +1,10 @@
 #!/bin/bash
 
-# Build system.
+# SetUp TbusOS.
 #
-# (C) 2022.07.21 TbusOS by liaowenxiong(571550728@qq.com)
+# Copyright (C) 2022.07.31 by liaowenxiong <571550728@qq.com>
+#
+# SPDX-License-Identifier: GPL-2.0
 
 do_setup()
 {

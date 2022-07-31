@@ -1,8 +1,10 @@
 #!/bin/bash
 
-# Build system.
+# Build TbusOS.
 #
-# (C) 2022.07.21 TbusOS by liaowenxiong(571550728@qq.com)
+# Copyright (C) 2022.07.31 by liaowenxiong <571550728@qq.com>
+#
+# SPDX-License-Identifier: GPL-2.0
 
 TbusOS=/home/ubuntu/TbusOS
 TOOLCHAIN_WEB=https://releases.linaro.org/components/toolchain/binaries/7.5-2019.12/arm-linux-gnueabi/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi.tar.xz
