@@ -6,15 +6,20 @@
 #
 # SPDX-License-Identifier: GPL-2.0
 
+QEMU_PACKAGE=qemu-7.0.0.tar.xz
+QEMU_WEB=https://download.qemu.org/${QEMU_PACKAGE}
+
 compile_qemu()
 {
-    mkdir -p ${TbusOS}/qemu
-    cd ${TbusOS}/qemu
+    mkdir -p ${TbusOS}/build/qemu
+    cd ${TbusOS}/build/qemu
     if [ ! -f "${QEMU_PACKAGE}" ]; then
-        wget ${QEMU_WEB}
+        ./download_package.sh --qemu ${QEMU_WEB}
     fi
     if [ ! -d "qemu-7.0.0" ]; then
-        tar xvf ${QEMU_PACKAGE}
+        cp ${TbusOS}/dl/${QEMU_PACKAGE} .
+	tar xvf ${QEMU_PACKAGE}
+	rm ${QEMU_PACKAGE}
     fi
     mkdir -p qemu_build && cd qemu_build
     ../qemu-7.0.0/configure
@@ -57,18 +62,20 @@ compile_busybox()
 }
 
 case $1 in
-    --help | -h)
-        echo "[Usage] ./install.sh"
-        echo "Compile kernel, qemu, busybox"
-        ;;
-    compile_kernel)
+    --kernel)
 	    compile_kernel
         ;;
-    compile_busybox)
+    --busybox)
 	    compile_busybox
 	;;
-    compile_qemu)
+    --qemu)
 	    compile_qemu
 	;;
+    --help | -h | *)
+        echo "[Usage] ./install.sh [option]"
+        echo "--kernel		compile kernel"
+        echo "--qemu		compile qemu"
+        echo "--busybox		compile busybox"
+        ;;
 esac
 

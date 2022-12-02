@@ -19,10 +19,15 @@ busybox()
 }
 
 case $1 in
-    kernel)
+    --kernel)
 	    kernel
 	;;
-    busybox)
+    --busybox)
 	    busybox
 	;;
+    --help | -h | *)
+        echo "[Usage] ./config.sh [option]"
+        echo "--kernel		make kernel menuconfig"
+        echo "--busybox		make busybox menuconfig"
+        ;;
 esac

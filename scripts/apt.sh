@@ -18,12 +18,13 @@ do_apt()
 }
 
 case $1 in
-    --help | -h)
-        echo "[Usage] ./apt.sh"
-        echo "Download the required apt package"
-        ;;
     "")
         do_apt
         ;;
+    --help | -h | *)
+        echo "[Usage] ./apt.sh"
+        echo "Download the required apt package"
+        ;;
+ 
 esac
 
