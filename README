@@ -1,0 +1,25 @@
+================================================================================
+
+This script is a provisional version. There are two things you should pay attention to yourself.
+1. If you want to separate the action of setting the toolchain from the compilation, set the toolchain path yourself. ex:export PATH=~/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi/bin:$PATH
+2. When compiling busybox, select static compilation.
+Settings ->
+- [*] Build static binary (no shared libs)
+
+
+[Usage] ./total.sh [option]
+--apt               Install the necessary software 
+--compile_busybox   compile busybox
+--compile_kernel    compile kernel
+--compile_qemu      compile qemu
+--setup_toolchain   download and setup environment variables of toolchain
+--pack              Package TbusOS.img
+--debug             Debugging TbusOS
+--run               Default Running TbusOS
+--auto              Automatically compile, set, and run
+--clean             clean busybox kernel qemu
+--clean_busybox     clean busybox
+--clean_kernel      clean kernel
+--clean_qemu        clean qemu
+
+================================================================================
