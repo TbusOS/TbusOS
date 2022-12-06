@@ -11,20 +11,17 @@ QEMU_WEB=https://download.qemu.org/${QEMU_PACKAGE}
 
 compile_qemu()
 {
-    mkdir -p ${TbusOS}/build/qemu
-    cd ${TbusOS}/build/qemu
-    if [ ! -f "${QEMU_PACKAGE}" ]; then
-        ./download_package.sh --qemu ${QEMU_WEB}
+    if [ ! -f "${TbusOS}/dl/${QEMU_PACKAGE}" ]; then
+        ${TbusOS}/scripts/download_package.sh --qemu ${QEMU_WEB}
     fi
-    if [ ! -d "qemu-7.0.0" ]; then
-        cp ${TbusOS}/dl/${QEMU_PACKAGE} .
-	tar xvf ${QEMU_PACKAGE}
-	rm ${QEMU_PACKAGE}
+    if [ ! -d "${TbusOS}/build/qemu-7.0.0" ]; then
+        cp ${TbusOS}/dl/${QEMU_PACKAGE} ${TbusOS}/build/
+	tar xvf ${TbusOS}/build/${QEMU_PACKAGE} -C ${TbusOS}/build/
+	rm ${TbusOS}/build/${QEMU_PACKAGE}
     fi
-    mkdir -p qemu_build && cd qemu_build
-    ../qemu-7.0.0/configure
+    mkdir -p ${TbusOS}/build/qemu-7.0.0/qemu_build && cd ${TbusOS}/build/qemu-7.0.0/qemu_build
+    ../configure
     make -j8
-    make install
 }
 
 compile_kernel()

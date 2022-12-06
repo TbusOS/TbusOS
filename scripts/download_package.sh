@@ -27,3 +27,5 @@ case $1 in
         echo "--kernel		download kernel"
         echo "--qemu		download qemu"
         echo "--busybox		download busybox"
+	;;
+esac
