@@ -6,13 +6,9 @@
 #
 # SPDX-License-Identifier: GPL-2.0
 
-TbusOS=/home/ubuntu/TbusOS
-
 clean_qemu()
 {
-    cd ${TbusOS}/qemu/qemu_build/
-    make distclean
-    cd -
+    rm -rf ${TbusOS}/build/qemu-7.0.0
 }
 
 clean_kernel()
