@@ -14,34 +14,12 @@ clean_qemu()
 
 clean_kernel()
 {
-    cd ${TbusOS}/kernel/linux-5.15.53/
-    make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- clean
-    cd -
+    rm -rf ${TbusOS}/build/linux-5.15.53
 }
 
 clean_busybox()
 {
-    cd ${TbusOS}/busybox/busybox-1.35.0
-    make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- clean
-    cd -
-}
-
-do_clean()
-{
-    #clean qemu
-    cd ${TbusOS}/qemu/qemu_build/
-    make distclean
-    cd -
-
-    #clean kernel
-    cd ${TbusOS}/kernel/linux-5.15.53/
-    make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- clean
-    cd -
-
-    #clean busybox
-    cd ${TbusOS}/busybox/busybox-1.35.0
-    make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- clean
-    cd -
+    rm -rf ${TbusOS}/build/busybox-1.35.0
 }
 
 case $1 in
@@ -49,17 +27,19 @@ case $1 in
         echo "[Usage] ./clean.sh"
         echo "Clean up qemu, kernel, busybox"
         ;;
-    clean_qemu)
+    --qemu)
 	    clean_qemu
 	;;
-    clean_kernel)
+    --kernel)
 	    clean_kernel
 	;;
-    clean_busybox)
+    --busybox)
 	    clean_busybox
 	;;
-    "")
-        do_clean
+    --all | -A)
+        clean_qemu
+		clean_kernel
+		clean_busybox
         ;;
 esac
 
