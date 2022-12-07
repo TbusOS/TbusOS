@@ -7,11 +7,11 @@
 # SPDX-License-Identifier: GPL-2.0
 
 TOOLCHAIN_WEB=https://releases.linaro.org/components/toolchain/binaries/7.5-2019.12/arm-linux-gnueabi/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi.tar.xz
-TOOLCHAIN_PACKAGE=gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi.tar
+TOOLCHAIN_PACKAGE=gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi.tar.xz
 
 download_toolchain()
 {
-    if [ ! -f "${TbusOS}/toolchains/${TOOLCHAIN_PACKAGE}" ]; then
+    if [ ! -f "${TbusOS}/dl/${TOOLCHAIN_PACKAGE}" ]; then
         ${TbusOS}/scripts/download_package.sh --toolchain ${TOOLCHAIN_WEB}
     fi
     if [ ! -d "${TbusOS}/build/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi" ]; then
@@ -26,6 +26,11 @@ case $1 in
 		download_toolchain
 	;;
 	--set_env)
-		${TbusOS}/scripts/env.sh --toolchain	
+		source ${TbusOS}/scripts/env.sh --toolchain	
 	;;
+    --help | -h | *)
+        echo "[Usage] ./toolchain.sh [option]"
+        echo "--download	download and unpack toolchain"
+        echo "--set_env		set toolchain environment variables"
+        ;;
 esac

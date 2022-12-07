@@ -10,6 +10,8 @@ QEMU_PACKAGE=qemu-7.0.0.tar.xz
 QEMU_WEB=https://download.qemu.org/${QEMU_PACKAGE}
 KERNEL_WEB=https://mirror.bjtu.edu.cn/kernel/linux/kernel/v5.x/linux-5.15.53.tar.xz
 KERNEL_PACKAGE=linux-5.15.53.tar.xz
+BUSYBOX_PACKAGE=busybox-1.35.0.tar.bz2
+BUSYBOX_WEB=https://busybox.net/downloads/busybox-1.35.0.tar.bz2
 
 compile_qemu()
 {
@@ -28,7 +30,7 @@ compile_qemu()
 
 compile_kernel()
 {
-    if [ ! -f "${TbusOS}/dl${KERNEL_PACKAGE}" ]; then
+    if [ ! -f "${TbusOS}/dl/${KERNEL_PACKAGE}" ]; then
         ${TbusOS}/scripts/download_package.sh --kernel ${KERNEL_WEB}
     fi
     if [ ! -d "${TbusOS}/build/linux-5.15.53" ]; then
@@ -44,16 +46,16 @@ compile_kernel()
 
 compile_busybox()
 {
-    mkdir -p ${TbusOS}/busybox
-    cd ${TbusOS}/busybox
-    if [ ! -f "${BUSYBOX_PACKAGE}" ]; then
-        wget https://busybox.net/downloads/busybox-1.35.0.tar.bz2
-    fi
-    if [ ! -d "busybox-1.35.0" ]; then
-        tar xvf busybox-1.35.0.tar.bz2
-    fi
-    cd busybox-1.35.0
-
+    if [ ! -f "${TbusOS}/dl/${BUSYBOX_PACKAGE}" ]; then
+        ${TbusOS}/scripts/download_package.sh --busybox ${BUSYBOX_WEB}
+	fi
+    if [ ! -d "${TbusOS}/build/busybox-1.35.0" ]; then
+		cp ${TbusOS}/dl/${BUSYBOX_PACKAGE} ${TbusOS}/build/
+		tar xvf ${TbusOS}/build/${BUSYBOX_PACKAGE} -C ${TbusOS}/build/
+		rm ${TbusOS}/build/${BUSYBOX_PACKAGE}
+	fi
+	
+	cd ${TbusOS}/build/busybox-1.35.0
     make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- defconfig
     make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- menuconfig
     make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j8

@@ -6,13 +6,12 @@
 #
 # SPDX-License-Identifier: GPL-2.0
 
-TbusOS=/home/liaowenxiong/test/TbusOS
-QEMU=${TbusOS}/qemu/qemu_build/qemu-system-arm
+QEMU=${TbusOS}/TbusOS/qemu/qemu-system-arm
 MACH=vexpress-a9
 RAM_SIZE=128
-LINUX_DIR=${TbusOS}/kernel/linux-5.15.53/arch
+LINUX_DIR=${TbusOS}/TbusOS/kernel
 ARCH=arm
-ROOTFS=${TbusOS}/rootfs
+ROOTFS=${TbusOS}/TbusOS/rootfs
 CMDLINE="earlycon root=/dev/ram rdinit=sbin/init console=ttyAMA0"
 
 #Run OS
@@ -24,8 +23,8 @@ do_run()
     ${QEMU} ${ARGS} \
     -M ${MACH} \
     -m ${RAM_SIZE}M \
-    -kernel ${LINUX_DIR}/${ARCH}/boot/zImage \
-    -dtb ${LINUX_DIR}/${ARCH}/boot/dts/vexpress-v2p-ca9.dtb \
+    -kernel ${LINUX_DIR}/zImage \
+    -dtb ${LINUX_DIR}/vexpress-v2p-ca9.dtb \
     -nographic \
     -initrd ${ROOTFS}/rootfs.img \
     -append "${CMDLINE}"

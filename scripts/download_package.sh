@@ -24,12 +24,18 @@ download_toolchain()
 	wget $1
 }
 
+download_busybox()
+{
+	cd ${TbusOS}/dl
+	wget $1
+}
+
 case $1 in
     --kernel)
     	download_kernel $2
 	;;
     --busybox)
-		download_busybox
+		download_busybox $2
 	;;
     --qemu)
 		download_qemu $2
