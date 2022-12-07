@@ -9,6 +9,7 @@
 clean_qemu()
 {
     rm -rf ${TbusOS}/build/qemu-7.0.0
+    #clean TbusOS/qemu
 }
 
 clean_kernel()

@@ -8,6 +8,8 @@
 
 QEMU_PACKAGE=qemu-7.0.0.tar.xz
 QEMU_WEB=https://download.qemu.org/${QEMU_PACKAGE}
+KERNEL_WEB=https://mirror.bjtu.edu.cn/kernel/linux/kernel/v5.x/linux-5.15.53.tar.xz
+KERNEL_PACKAGE=linux-5.15.53.tar.xz
 
 compile_qemu()
 {
@@ -16,8 +18,8 @@ compile_qemu()
     fi
     if [ ! -d "${TbusOS}/build/qemu-7.0.0" ]; then
         cp ${TbusOS}/dl/${QEMU_PACKAGE} ${TbusOS}/build/
-	tar xvf ${TbusOS}/build/${QEMU_PACKAGE} -C ${TbusOS}/build/
-	rm ${TbusOS}/build/${QEMU_PACKAGE}
+		tar xvf ${TbusOS}/build/${QEMU_PACKAGE} -C ${TbusOS}/build/
+		rm ${TbusOS}/build/${QEMU_PACKAGE}
     fi
     mkdir -p ${TbusOS}/build/qemu-7.0.0/qemu_build && cd ${TbusOS}/build/qemu-7.0.0/qemu_build
     ../configure
@@ -26,15 +28,15 @@ compile_qemu()
 
 compile_kernel()
 {
-    mkdir -p ${TbusOS}/kernel
-    cd ${TbusOS}/kernel
-    if [ ! -f "linux-5.15.53.tar.xz" ]; then
-        wget ${KERNEL_WEB}
+    if [ ! -f "${TbusOS}/dl${KERNEL_PACKAGE}" ]; then
+        ${TbusOS}/scripts/download_package.sh --kernel ${KERNEL_WEB}
     fi
-    if [ ! -d "${TbusOS}/kernel/linux-5.15.53" ]; then
-        tar xvf linux-5.15.53.tar.xz
+    if [ ! -d "${TbusOS}/build/linux-5.15.53" ]; then
+        cp ${TbusOS}/dl/${KERNEL_PACKAGE} ${TbusOS}/build/
+		tar xvf ${TbusOS}/build/${KERNEL_PACKAGE} -C ${TbusOS}/build/
+		rm ${TbusOS}/build/${KERNEL_PACKAGE}
     fi
-    cd linux-5.15.53
+    cd ${TbusOS}/build/linux-5.15.53
     make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- vexpress_defconfig
     make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- menuconfig
     make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j8

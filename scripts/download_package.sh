@@ -12,18 +12,33 @@ download_qemu()
     wget $1
 }
 
+download_kernel()
+{
+    cd ${TbusOS}/dl
+    wget $1
+}
+
+download_toolchain()
+{
+	cd ${TbusOS}/dl
+	wget $1
+}
+
 case $1 in
     --kernel)
-    	download_kernel
+    	download_kernel $2
 	;;
     --busybox)
-	download_busybox
+		download_busybox
 	;;
     --qemu)
-	download_qemu $2
+		download_qemu $2
+	;;
+	--toolchain)
+		download_toolchain $2
 	;;
     --help | -h | *)
-	echo "[Usage] ./download_package.sh [option]"
+		echo "[Usage] ./download_package.sh [option]"
         echo "--kernel		download kernel"
         echo "--qemu		download qemu"
         echo "--busybox		download busybox"
