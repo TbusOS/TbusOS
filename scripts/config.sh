@@ -8,13 +8,13 @@
 
 kernel()
 {
-    cd ${TbusOS}/kernel
+    cd ${TbusOS}/build/linux-5.15.53
     make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- menuconfig
 }
 
 busybox()
 {
-    cd ${TbusOS}/busybox
+    cd ${TbusOS}/build/busybox-1.35.0
     make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- menuconfig
 }
 
