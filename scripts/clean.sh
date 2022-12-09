@@ -9,7 +9,6 @@
 clean_qemu()
 {
     rm -rf ${TbusOS}/build/qemu-7.0.0
-    #clean TbusOS/qemu
 }
 
 clean_kernel()
@@ -22,11 +21,12 @@ clean_busybox()
     rm -rf ${TbusOS}/build/busybox-1.35.0
 }
 
+clean_toolchain()
+{
+	rm -rf ${TbusOS}/toolchains/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi
+}
+
 case $1 in
-    --help | -h | *)
-        echo "[Usage] ./clean.sh"
-        echo "Clean up qemu, kernel, busybox"
-        ;;
     --qemu)
 	    clean_qemu
 	;;
@@ -36,10 +36,22 @@ case $1 in
     --busybox)
 	    clean_busybox
 	;;
+	--toolchain)
+		clean_toolchain
+	;;
     --all | -A)
         clean_qemu
 		clean_kernel
 		clean_busybox
+		clean_toolchain
+        ;;
+    --help | -h | *)
+        echo "[Usage] ./clean.sh"
+        echo "--qemu	clean qemu"
+        echo "--kernel	clean kernel"
+        echo "--busybox	clean busybox"
+        echo "--toolchain	clean toolchain"
+        echo "--all, -A	clean all"
         ;;
 esac
 

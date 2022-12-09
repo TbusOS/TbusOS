@@ -6,12 +6,6 @@
 #
 # SPDX-License-Identifier: GPL-2.0
 
-set_all_env()
-{
-    export TbusOS=$PWD/..
-    export PATH=${TbusOS}/build/qemu-7.0.0/qemu_build:${TbusOS}/toolchain/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi/bin:$PATH
-}
-
 set_TbusOS_env()
 {
 	export TbusOS=$PWD/..
@@ -24,7 +18,7 @@ set_qemu_env()
 
 set_toolchain_env()
 {
-	export PATH=${TbusOS}/build/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi/bin:$PATH
+	export PATH=${TbusOS}/toolchains/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi/bin:$PATH
 }
 
 
@@ -39,11 +33,16 @@ case $1 in
 		set_TbusOS_env
 		;;
     --all | -A)
-        set_all_env
-        ;;
+        set_TbusOS_env
+		set_qemu_env
+		set_toolchain_env
+		;;
     --help | -h | *)
         echo "[Usage] ./env.sh"
-        echo "set the environment variables"
+        echo "--toolchain	set toolchain PATH"
+		echo "--qemu		set qemu PATH"
+		echo "--TbusOS		set TbusOS dir"
+		echo "--all, -A		set toolchain, qemu, TbusOS enviroment variables"
         ;;
 esac
 

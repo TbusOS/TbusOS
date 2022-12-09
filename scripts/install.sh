@@ -51,17 +51,13 @@ case $1 in
 	--qemu)
 		install_qemu
 		;;
-	--busybox)
-		install_busybox
-		;;
     --kernel)
         install_kernel
         ;;
     --help | -h | *)
         echo "[Usage] ./install.sh"
-        echo "--toolchain	install toolchain"
+        echo "--rootfs	install rootfs"
         echo "--qemu		install qemu"
-        echo "--busybox		install busybox"
         echo "--kernel		install kernel"
         ;;
 esac

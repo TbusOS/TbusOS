@@ -37,10 +37,10 @@ compile_kernel()
         cp ${TbusOS}/dl/${KERNEL_PACKAGE} ${TbusOS}/build/
 		tar xvf ${TbusOS}/build/${KERNEL_PACKAGE} -C ${TbusOS}/build/
 		rm ${TbusOS}/build/${KERNEL_PACKAGE}
+		cd ${TbusOS}/build/linux-5.15.53
+		make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- vexpress_defconfig
     fi
-    cd ${TbusOS}/build/linux-5.15.53
-    make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- vexpress_defconfig
-    make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- menuconfig
+	cd ${TbusOS}/build/linux-5.15.53
     make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j8
 }
 
@@ -53,11 +53,11 @@ compile_busybox()
 		cp ${TbusOS}/dl/${BUSYBOX_PACKAGE} ${TbusOS}/build/
 		tar xvf ${TbusOS}/build/${BUSYBOX_PACKAGE} -C ${TbusOS}/build/
 		rm ${TbusOS}/build/${BUSYBOX_PACKAGE}
+		cd ${TbusOS}/build/busybox-1.35.0
+		patch -p0 Config.in < ${TbusOS}/scripts/other/static.patch
+		make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- defconfig
 	fi
-	
 	cd ${TbusOS}/build/busybox-1.35.0
-    make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- defconfig
-    make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- menuconfig
     make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j8
     make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- install
 }

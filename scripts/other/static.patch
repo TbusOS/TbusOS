@@ -1,0 +1,11 @@
+--- a/Config.in	2022-12-09 15:16:25.992741279 +0800
++++ b/Config.in	2022-12-09 15:15:44.204524031 +0800
+@@ -361,7 +361,7 @@
+ 
+ config STATIC
+ 	bool "Build static binary (no shared libs)"
+-	default n
++	default y
+ 	help
+ 	If you want to build a static binary, which does not use
+ 	or require any shared libraries, enable this option.
