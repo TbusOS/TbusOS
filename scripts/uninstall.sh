@@ -31,6 +31,11 @@ case $1 in
     --kernel)
         uninstall_kernel
         ;;
+	--all | -A)
+        uninstall_kernel
+		uninstall_qemu
+		uninstall_rootfs
+		;;
     --help | -h | *)
         echo "[Usage] ./uninstall.sh"
         echo "--rootfs	uninstall rootfs"
