@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# SetUp TbusOS.
+# Install the required packages to compile TbusOS
 #
 # Copyright (C) 2022.08.04 by liaowenxiong <571550728@qq.com>
 #

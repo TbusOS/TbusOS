@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Clean TbusOS.
+# Configure TbusOS.
 #
 # Copyright (C) 2022.07.31 by liaowenxiong <571550728@qq.com>
 #

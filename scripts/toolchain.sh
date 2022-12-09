@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# SetUp TbusOS.
+# SetUp TbusOS toolchain.
 #
 # Copyright (C) 2022.12.07 by liaowenxiong <571550728@qq.com>
 #
