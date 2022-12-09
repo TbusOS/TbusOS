@@ -1,19 +1,25 @@
-### Hi there 👋
+████████╗██████╗ ██╗   ██╗███████╗ ██████╗ ███████╗
+╚══██╔══╝██╔══██╗██║   ██║██╔════╝██╔═══██╗██╔════╝
+   ██║   ██████╔╝██║   ██║███████╗██║   ██║███████╗
+   ██║   ██╔══██╗██║   ██║╚════██║██║   ██║╚════██║
+   ██║   ██████╔╝╚██████╔╝███████║╚██████╔╝███████║
+   ╚═╝   ╚═════╝  ╚═════╝ ╚══════╝ ╚═════╝ ╚══════╝
+   ------------------------------------------------
 
-1.Run the --help option for each script to see how they are used. 
-2.It should be noted that the TbusOS path in the current script needs to be specified by yourself.
 
-<!--
-**TbusOS/TbusOS** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+How to use:
+1.Run "./scripts/apt.sh" install the necessary packages
+2.Run "source ./scripts/env.sh" to set environment variables.
+3.Run "./scripts/toolchain.sh" to download and set toolchain.
+4.Run "./scripts/compile.sh" to compile qemu, kernel, busybox.
+5.Run "./scripts/install.sh" to install to TbusOS dir.
+6.Run "./scripts/run.sh" to run TbusOS.
+7.Run "./scripts/clean.sh" to clean what you compile.
+8.Run "./scripts/uninstall.sh" to uninstall TbusOS.
 
-Here are some ideas to get you started:
+Currently supported functions:
+1.
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+Fuction to be supported later:
+1.Support choice kernel, qemu, busybox, toolchain by options.
+2.Support for packaging TbusOS.
