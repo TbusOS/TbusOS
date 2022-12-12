@@ -23,4 +23,5 @@ Currently supported functions:
 Fuction to be supported later:  
 1.Support choice kernel, qemu, busybox, toolchain by options.  
 2.Support for packaging TbusOS.  
-3.Support clean_env.sh.
+3.Support clean_env.sh.   
+4.Support tab out the parameters of each script.
