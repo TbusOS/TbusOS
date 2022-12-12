@@ -23,3 +23,4 @@ Currently supported functions:
 Fuction to be supported later:  
 1.Support choice kernel, qemu, busybox, toolchain by options.  
 2.Support for packaging TbusOS.  
+3.Support clean_env.sh.
