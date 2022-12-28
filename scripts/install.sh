@@ -28,6 +28,25 @@ pack_rootfs()
 	find ./ | cpio -o --format=newc > ./rootfs.img
 }
 
+pack_rootfs_loop_dev()
+{
+	mkdir -p ${TbusOS}/TbusOS/rootfs
+
+	sudo dd if=/dev/zero of=${TbusOS}/TbusOS/rootfs.ext4 bs=1M count=32
+	sudo mkfs.ext4 ${TbusOS}/TbusOS/rootfs.ext4
+	sudo mount -t ext4 ${TbusOS}/TbusOS/rootfs.ext4 ${TbusOS}/TbusOS/rootfs/ -o loop
+
+	sudo mkdir -p ${TbusOS}/TbusOS/rootfs/{dev,etc/init.d,lib,proc,sys}
+	sudo cp -raf ${TbusOS}/build/busybox-1.35.0/_install/* ${TbusOS}/TbusOS/rootfs
+
+	sudo cp ${TbusOS}/scripts/other/rcS ${TbusOS}/TbusOS/rootfs/etc/init.d/rcS
+
+	sudo chmod +x ${TbusOS}/TbusOS/rootfs/etc/init.d/rcS
+	sudo umount ${TbusOS}/TbusOS/rootfs
+
+	sudo chmod 666 ${TbusOS}/TbusOS/rootfs.ext4
+}
+
 install_qemu()
 {
 	mkdir -p ${TbusOS}/TbusOS/qemu
@@ -48,6 +67,9 @@ case $1 in
 	--rootfs)
 		pack_rootfs
 		;;
+	--rootfs_loop_dev)
+		pack_rootfs_loop_dev
+		;;
 	--qemu)
 		install_qemu
 		;;
@@ -57,6 +79,7 @@ case $1 in
     --help | -h | *)
         echo "[Usage] ./install.sh"
         echo "--rootfs	install rootfs"
+		echo "--rootfs_loop_dev   install loop device rootfs"
         echo "--qemu		install qemu"
         echo "--kernel		install kernel"
         ;;
