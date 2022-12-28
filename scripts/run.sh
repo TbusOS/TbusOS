@@ -29,13 +29,13 @@ do_run()
 		CMDLINE=${CMDLINE_SD}
 	elif [ "$1" = $virt_arg ]
 	then
-		DEVICE_ARG="-device virtio-blk-device,drive=hd0 -drive format=raw,file=${TbusOS}/TbusOS/rootfs.ext4,id=hd0"
+		DEVICE_ARG="-device virtio-blk-device,drive=hd0 -drive file=${TbusOS}/TbusOS/rootfs.ext4,format=raw,id=hd0"
 		CMDLINE=${CMDLINE_VIRT}
 	else
 		DEVICE_ARG=-initrd ${ROOTFS}/rootfs.img
 		CMDLINE=${CMDLINE_RAM}
 	fi
-
+	
     sudo ${QEMU} ${ARGS} \
     -M ${MACH} \
     -m ${RAM_SIZE}M \
@@ -46,15 +46,45 @@ do_run()
 	-append "${CMDLINE}"
 }
 
-case $1 in
-    "" | --sd | --virt)
-		do_run $1
-        ;;
-    --help | -h | *)
-        echo "[Usage] ./run.sh"
-		echo "--sd	use sd as mounted device"
-		echo "--virt	use virt device as mounted device"
-		echo "if not arg	use ram as mounted device"
-    ;;
-esac
+SHELL_ARGS=`getopt -o h --long smp:,cores:,threads:,sockets:,ram,sd,virt,help -- "$@"`
+
+echo $SHELL_ARGS
+eval set -- "${SHELL_ARGS}"
+
+while true
+do
+	case $1 in
+		--smp)
+			SMP_ARG=$2
+			shift 2
+			;;
+		--cores)
+			CORES_ARG=$2
+			shift 2
+			;;
+		--threads)
+			THREADS_ARG=$2
+			shift 2
+			;;
+		--sockets)
+			SOCKETS_ARG=$2
+			shift 2
+			;;
+		--ram | --sd | --virt)
+			DEVICE_ARG=$1
+			shift
+			;;
+		--)
+			do_run $DEVICE_ARG $SMP_ARG $CORES_ARG $THREADS_ARG $SOCKETS_ARG
+			break
+			;;
+		--help | -h | *)
+		    echo "[Usage] ./run.sh"
+			echo "--sd	use sd as mounted device"
+			echo "--virt	use virt device as mounted device"
+			echo "--ram	use ram as mounted device"
+			break
+		;;
+	esac
+done
 
