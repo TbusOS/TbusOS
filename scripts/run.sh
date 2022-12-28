@@ -47,14 +47,14 @@ do_run()
 }
 
 case $1 in
-    --help | -h)
+    "" | --sd | --virt)
+		do_run $1
+        ;;
+    --help | -h | *)
         echo "[Usage] ./run.sh"
 		echo "--sd	use sd as mounted device"
 		echo "--virt	use virt device as mounted device"
 		echo "if not arg	use ram as mounted device"
     ;;
-    "" | --sd | --virt)
-		do_run $1
-        ;;
 esac
 
