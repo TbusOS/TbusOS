@@ -25,30 +25,59 @@ do_run()
 	virt_arg="--virt"
 	if [ "$1" = $sd_arg ]
 	then
-		DEVICE_ARG="-drive if=sd,format=raw,file=${TbusOS}/TbusOS/rootfs.ext4,id=sd0"
+		QEMU_DEVICE_ARG="-drive if=sd,format=raw,file=${TbusOS}/TbusOS/rootfs.ext4,id=sd0"
 		CMDLINE=${CMDLINE_SD}
 	elif [ "$1" = $virt_arg ]
 	then
-		DEVICE_ARG="-device virtio-blk-device,drive=hd0 -drive file=${TbusOS}/TbusOS/rootfs.ext4,format=raw,id=hd0"
+		QEMU_DEVICE_ARG="-device virtio-blk-device,drive=hd0 -drive file=${TbusOS}/TbusOS/rootfs.ext4,format=raw,id=hd0"
 		CMDLINE=${CMDLINE_VIRT}
 	else
-		DEVICE_ARG=-initrd ${ROOTFS}/rootfs.img
+		QEMU_DEVICE_ARG=-initrd ${ROOTFS}/rootfs.img
 		CMDLINE=${CMDLINE_RAM}
 	fi
-	
-    sudo ${QEMU} ${ARGS} \
+
+
+	if [ "$SMP_ARG" != "" ]
+	then
+		SMP_ARG="-smp $SMP_ARG"
+		if [ "$MAXCPUS_ARG" != "" ]
+		then
+			SMP_ARG+=",maxcpus=$MAXCPUS_ARG"
+		fi
+		if [ "$SOCKETS_ARG" != "" ]
+		then
+			SMP_ARG+=",sockets=$SOCKETS_ARG"
+		fi
+		if [ "$DIES_ARG" != "" ]
+		then
+			SMP_ARG+=",dies=$DIES_ARG"
+		fi
+		if [ "$CLUSTERS_ARG" != "" ]
+		then
+			SMP_ARG+=",clusters=$CLUSTERS_ARG"
+		fi
+		if [ "$CORES_ARG" != "" ]
+		then
+			SMP_ARG+=",cores=$CORES_ARG"
+		fi
+		if [ "$THREADS_ARG" != "" ]
+		then
+			SMP_ARG+=",threads=$THREADS_ARG"
+		fi
+	fi
+
+    sudo ${QEMU} ${ARGS} ${SMP_ARG} \
     -M ${MACH} \
     -m ${RAM_SIZE}M \
     -kernel ${LINUX_DIR}/zImage \
     -dtb ${LINUX_DIR}/vexpress-v2p-ca9.dtb \
     -nographic \
-	${DEVICE_ARG} \
+	${QEMU_DEVICE_ARG} \
 	-append "${CMDLINE}"
 }
 
-SHELL_ARGS=`getopt -o h --long smp:,cores:,threads:,sockets:,ram,sd,virt,help -- "$@"`
+SHELL_ARGS=`getopt -o h --long smp:,cores:,threads:,sockets:,maxcpus:,dies:,clusters:,ram,sd,virt,help -- "$@"`
 
-echo $SHELL_ARGS
 eval set -- "${SHELL_ARGS}"
 
 while true
@@ -70,21 +99,47 @@ do
 			SOCKETS_ARG=$2
 			shift 2
 			;;
+		--maxcpus)
+			MAXCPUS_ARG=$2
+			shift 2
+			;;
+		--dies)
+			DIES_ARG=$2
+			shift 2
+			;;
+		--clusters)
+			CLUSTERS_ARG=$2
+			shift 2
+			;;
 		--ram | --sd | --virt)
 			DEVICE_ARG=$1
 			shift
 			;;
 		--)
-			do_run $DEVICE_ARG $SMP_ARG $CORES_ARG $THREADS_ARG $SOCKETS_ARG
-			break
+			shift
+			if [ "$1" = "" ]
+			then
+				break
+			fi
 			;;
 		--help | -h | *)
 		    echo "[Usage] ./run.sh"
 			echo "--sd	use sd as mounted device"
 			echo "--virt	use virt device as mounted device"
 			echo "--ram	use ram as mounted device"
+			echo "--smp=n	set the number of initial CPUs to 'n'"
+			echo "--maxcpus=n	maximum number of total CPUs, including offline CPUs for hotplug,etc"
+			echo "--sockets=n	number of sockets on the machine board"
+			echo "--dies=n	number of dies in one socket"
+			echo "--clusters=n	number of clusters in one die"
+			echo "--cores=n	number of cores in one cluster"
+			echo "--threads=n	number of threads in one core"
 			break
-		;;
+			;;
 	esac
 done
 
+if [ "$DEVICE_ARG" != "" ]
+then
+	do_run $DEVICE_ARG
+fi
