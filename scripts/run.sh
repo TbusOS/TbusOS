@@ -127,7 +127,7 @@ do
 			echo "--sd	use sd as mounted device"
 			echo "--virt	use virt device as mounted device"
 			echo "--ram	use ram as mounted device"
-			echo "--smp=n	set the number of initial CPUs to 'n'"
+			echo "--smp=n	set the number of initial CPUs to 'n', you need to select this option in order to select the following 6 options"
 			echo "--maxcpus=n	maximum number of total CPUs, including offline CPUs for hotplug,etc"
 			echo "--sockets=n	number of sockets on the machine board"
 			echo "--dies=n	number of dies in one socket"
