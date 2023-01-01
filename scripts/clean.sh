@@ -6,19 +6,42 @@
 #
 # SPDX-License-Identifier: GPL-2.0
 
-clean_qemu()
+distclean_qemu()
 {
     rm -rf ${TbusOS}/build/qemu-7.0.0
 }
 
-clean_kernel()
+distclean_kernel()
 {
     rm -rf ${TbusOS}/build/linux-5.15.53
 }
 
-clean_busybox()
+distclean_busybox()
 {
     rm -rf ${TbusOS}/build/busybox-1.35.0
+}
+
+clean_qemu()
+{
+	cd ${TbusOS}/build/qemu-7.0.0
+
+	make clean
+	make distclean
+	rm -rf qemu_build
+}
+
+clean_kernel()
+{
+	cd ${TbusOS}/build/linux-5.15.53
+
+	make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- clean
+}
+
+clean_busybox()
+{
+	cd ${TbusOS}/build/busybox-1.35.0
+
+	make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- clean
 }
 
 clean_toolchain()
@@ -27,30 +50,42 @@ clean_toolchain()
 }
 
 case $1 in
-    --qemu)
-	    clean_qemu
+    --distclean_qemu)
+	    distclean_qemu
 	;;
-    --kernel)
-	    clean_kernel
+    --distclean_kernel)
+	    distclean_kernel
 	;;
-    --busybox)
-	    clean_busybox
+    --distclean_busybox)
+	    distclean_busybox
 	;;
-	--toolchain)
-		clean_toolchain
+	--distclean_toolchain)
+		distclean_toolchain
+	;;
+	--clean_kernel)
+		clean_kernel
+	;;
+	--clean_qemu)
+		clean_qemu
+	;;
+	--clean_busybox)
+		clean_busybox
 	;;
     --all | -A)
-        clean_qemu
-		clean_kernel
-		clean_busybox
-		clean_toolchain
+        distclean_qemu
+		distclean_kernel
+		distclean_busybox
+		distclean_toolchain
         ;;
     --help | -h | *)
         echo "[Usage] ./clean.sh"
-        echo "--qemu	clean qemu"
-        echo "--kernel	clean kernel"
-        echo "--busybox	clean busybox"
-        echo "--toolchain	clean toolchain"
+        echo "--distclean_qemu	distclean qemu"
+        echo "--distclean_busybox	distclean busybox"
+        echo "--distclean_kernel	distclean kernel"
+        echo "--clean_qemu	clean qemu"
+        echo "--clean_kernel	clean kernel"
+        echo "--clean_busybox	clean busybox"
+        echo "--distclean_toolchain	clean toolchain"
         echo "--all, -A	clean all"
         ;;
 esac
