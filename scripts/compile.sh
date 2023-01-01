@@ -8,15 +8,15 @@
 
 QEMU_PACKAGE=qemu-7.0.0.tar.xz
 QEMU_WEB=https://download.qemu.org/${QEMU_PACKAGE}
-KERNEL_WEB=https://mirror.bjtu.edu.cn/kernel/linux/kernel/v5.x/linux-5.15.53.tar.xz
 KERNEL_PACKAGE=linux-5.15.53.tar.xz
+KERNEL_WEB=https://mirror.bjtu.edu.cn/kernel/linux/kernel/v5.x/${KERNEL_PACKAGE}
 BUSYBOX_PACKAGE=busybox-1.35.0.tar.bz2
-BUSYBOX_WEB=https://busybox.net/downloads/busybox-1.35.0.tar.bz2
+BUSYBOX_WEB=https://busybox.net/downloads/${BUSYBOX_PACKAGE}
 
 compile_qemu()
 {
     if [ ! -f "${TbusOS}/dl/${QEMU_PACKAGE}" ]; then
-        ${TbusOS}/scripts/other/download_package.sh --qemu ${QEMU_WEB}
+        ${TbusOS}/scripts/download_package.sh --qemu ${QEMU_WEB}
     fi
     if [ ! -d "${TbusOS}/build/qemu-7.0.0" ]; then
         cp ${TbusOS}/dl/${QEMU_PACKAGE} ${TbusOS}/build/
@@ -31,7 +31,7 @@ compile_qemu()
 compile_kernel()
 {
     if [ ! -f "${TbusOS}/dl/${KERNEL_PACKAGE}" ]; then
-        ${TbusOS}/scripts/other/download_package.sh --kernel ${KERNEL_WEB}
+        ${TbusOS}/scripts/download_package.sh --kernel ${KERNEL_WEB}
     fi
     if [ ! -d "${TbusOS}/build/linux-5.15.53" ]; then
         cp ${TbusOS}/dl/${KERNEL_PACKAGE} ${TbusOS}/build/
@@ -47,7 +47,7 @@ compile_kernel()
 compile_busybox()
 {
     if [ ! -f "${TbusOS}/dl/${BUSYBOX_PACKAGE}" ]; then
-        ${TbusOS}/scripts/other/download_package.sh --busybox ${BUSYBOX_WEB}
+        ${TbusOS}/scripts/download_package.sh --busybox ${BUSYBOX_WEB}
 	fi
     if [ ! -d "${TbusOS}/build/busybox-1.35.0" ]; then
 		cp ${TbusOS}/dl/${BUSYBOX_PACKAGE} ${TbusOS}/build/

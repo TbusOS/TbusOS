@@ -6,13 +6,13 @@
 #
 # SPDX-License-Identifier: GPL-2.0
 
-TOOLCHAIN_WEB=https://releases.linaro.org/components/toolchain/binaries/7.5-2019.12/arm-linux-gnueabi/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi.tar.xz
 TOOLCHAIN_PACKAGE=gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi.tar.xz
+TOOLCHAIN_WEB=https://releases.linaro.org/components/toolchain/binaries/7.5-2019.12/arm-linux-gnueabi/${TOOLCHAIN_PACKAGE}
 
 download_toolchain()
 {
     if [ ! -f "${TbusOS}/dl/${TOOLCHAIN_PACKAGE}" ]; then
-        ${TbusOS}/scripts/other/download_package.sh --toolchain ${TOOLCHAIN_WEB}
+        ${TbusOS}/scripts/download_package.sh --toolchain ${TOOLCHAIN_WEB}
     fi
     if [ ! -d "${TbusOS}/toolchains/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi" ]; then
         cp ${TbusOS}/dl/${TOOLCHAIN_PACKAGE} ${TbusOS}/toolchains/
