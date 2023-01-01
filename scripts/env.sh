@@ -21,6 +21,11 @@ set_toolchain_env()
 	export PATH=${TbusOS}/toolchains/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi/bin:$PATH
 }
 
+if [ "$OLD_PATH" = "" ]
+then
+	export OLD_PATH=$PATH
+fi
+
 
 case $1 in
 	--toolchain)
