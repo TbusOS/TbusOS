@@ -63,6 +63,14 @@ install_kernel()
 	cp ${TbusOS}/build/linux-5.15.53/arch/arm/boot/dts/vexpress-v2p-ca9.dtb ${TbusOS}/TbusOS/kernel
 }
 
+if [ ! -d "${TbusOS}/TbusOS" ]; then
+	mkdir -p ${TbusOS}/TbusOS
+fi
+
+if [ ! -f "${TbusOS}/TbusOS/TbusOS_run.sh" ]; then
+	cp ${TbusOS}/scripts/other/TbusOS_run.sh ${TbusOS}/TbusOS
+fi
+
 case $1 in
 	--rootfs)
 		pack_rootfs
