@@ -21,6 +21,10 @@ download_toolchain()
     fi
 }
 
+if [ ! -d "${TbusOS}/toolchains" ]; then
+	mkdir -p ${TbusOS}/toolchains
+fi
+
 case $1 in
 	--download)
 		download_toolchain

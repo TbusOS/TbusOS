@@ -62,6 +62,10 @@ compile_busybox()
     make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- install
 }
 
+if [ ! -d "${TbusOS}/build" ]; then
+	mkdir -p ${TbusOS}/build
+fi
+
 case $1 in
     --kernel)
 	    compile_kernel
