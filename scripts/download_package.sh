@@ -42,6 +42,10 @@ download_busybox()
 	wget $1
 }
 
+if [ ! -d "${TbusOS}/dl" ]; then
+	mkdir -p ${TbusOS}/dl
+fi
+
 case $1 in
     --kernel)
     	download_kernel $2
