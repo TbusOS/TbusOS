@@ -69,18 +69,24 @@ fi
 case $1 in
     --kernel)
 	    compile_kernel
-        ;;
+    ;;
     --busybox)
 	    compile_busybox
 	;;
     --qemu)
 	    compile_qemu
 	;;
+	-A | --all)
+		compile_kernel
+		compile_busybox
+		compile_qemu
+		;;
     --help | -h | *)
         echo "[Usage] ./install.sh [option]"
         echo "--kernel		compile kernel"
         echo "--qemu		compile qemu"
         echo "--busybox		compile busybox"
+		echo "-A, --all	compile all"
         ;;
 esac
 
