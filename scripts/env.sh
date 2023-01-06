@@ -21,6 +21,11 @@ set_toolchain_env()
 	export PATH=${TbusOS}/toolchains/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi/bin:$PATH
 }
 
+set_package_version()
+{
+	source ./other/version.sh $@
+}
+
 if [ "$OLD_PATH" = "" ]
 then
 	export OLD_PATH=$PATH
@@ -37,6 +42,9 @@ case $1 in
 	--TbusOS)
 		set_TbusOS_env
 		;;
+	--package_version)
+		set_package_version ${@: 2}
+		;;
     --all | -A)
         set_TbusOS_env
 		set_qemu_env
@@ -47,6 +55,7 @@ case $1 in
         echo "--toolchain	set toolchain PATH"
 		echo "--qemu		set qemu PATH"
 		echo "--TbusOS		set TbusOS dir"
+		echo "--package_version [arg]	input "--package_version -h" to see more arg"
 		echo "--all, -A		set toolchain, qemu, TbusOS enviroment variables"
         ;;
 esac

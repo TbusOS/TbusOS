@@ -6,11 +6,14 @@
 #
 # SPDX-License-Identifier: GPL-2.0
 
-QEMU_PACKAGE=qemu-7.0.0.tar.xz
+QEMU_VERSION=7.0.0
+QEMU_PACKAGE=qemu-${QEMU_VERSION}.tar.xz
 QEMU_WEB=https://download.qemu.org/${QEMU_PACKAGE}
-KERNEL_PACKAGE=linux-5.15.53.tar.xz
+KERNEL_VERSION=5.15.53
+KERNEL_PACKAGE=linux-${KERNEL_VERSION}.tar.xz
 KERNEL_WEB=https://mirror.bjtu.edu.cn/kernel/linux/kernel/v5.x/${KERNEL_PACKAGE}
-BUSYBOX_PACKAGE=busybox-1.35.0.tar.bz2
+BUSYBOX_VERSION=1.35.0
+BUSYBOX_PACKAGE=busybox-${BUSYBOX_VERSION}.tar.bz2
 BUSYBOX_WEB=https://busybox.net/downloads/${BUSYBOX_PACKAGE}
 
 compile_qemu()
@@ -18,12 +21,12 @@ compile_qemu()
     if [ ! -f "${TbusOS}/dl/${QEMU_PACKAGE}" ]; then
         ${TbusOS}/scripts/download_package.sh --qemu ${QEMU_WEB}
     fi
-    if [ ! -d "${TbusOS}/build/qemu-7.0.0" ]; then
+    if [ ! -d "${TbusOS}/build/qemu-${QEMU_VERSION}" ]; then
         cp ${TbusOS}/dl/${QEMU_PACKAGE} ${TbusOS}/build/
 		tar xvf ${TbusOS}/build/${QEMU_PACKAGE} -C ${TbusOS}/build/
 		rm ${TbusOS}/build/${QEMU_PACKAGE}
     fi
-    mkdir -p ${TbusOS}/build/qemu-7.0.0/qemu_build && cd ${TbusOS}/build/qemu-7.0.0/qemu_build
+    mkdir -p ${TbusOS}/build/qemu-${QEMU_VERSION}/qemu_build && cd ${TbusOS}/build/qemu-${QEMU_VERSION}/qemu_build
     ../configure
     make -j8
 }
