@@ -8,22 +8,22 @@
 
 distclean_qemu()
 {
-    rm -rf ${TbusOS}/build/qemu-7.0.0
+    rm -rf ${TbusOS}/build/qemu-${QEMU_VERSION}
 }
 
 distclean_kernel()
 {
-    rm -rf ${TbusOS}/build/linux-5.15.53
+    rm -rf ${TbusOS}/build/linux-${KERNEL_VERSION}
 }
 
 distclean_busybox()
 {
-    rm -rf ${TbusOS}/build/busybox-1.35.0
+    rm -rf ${TbusOS}/build/busybox-${BUSYBOX_VERSION}
 }
 
 clean_qemu()
 {
-	cd ${TbusOS}/build/qemu-7.0.0
+	cd ${TbusOS}/build/qemu-${QEMU_VERSION}
 
 	make clean
 	make distclean
@@ -32,21 +32,21 @@ clean_qemu()
 
 clean_kernel()
 {
-	cd ${TbusOS}/build/linux-5.15.53
+	cd ${TbusOS}/build/linux-${KERNEL_VERSION}
 
 	make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- clean
 }
 
 clean_busybox()
 {
-	cd ${TbusOS}/build/busybox-1.35.0
+	cd ${TbusOS}/build/busybox-${BUSYBOX_VERSION}
 
 	make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- clean
 }
 
 clean_toolchain()
 {
-	rm -rf ${TbusOS}/toolchains/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi
+	rm -rf ${TbusOS}/toolchains/gcc-linaro-${TOOLCHAIN_VERSION}-x86_64_arm-linux-gnueabi
 }
 
 case $1 in

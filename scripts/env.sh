@@ -13,17 +13,17 @@ set_TbusOS_env()
 
 set_qemu_env()
 {
-	export PATH=${TbusOS}/build/qemu-7.0.0/qemu_build:$PATH
+	export PATH=${TbusOS}/build/qemu-${QEMU_VERSION}/qemu_build:$PATH
 }
 
 set_toolchain_env()
 {
-	export PATH=${TbusOS}/toolchains/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi/bin:$PATH
+	export PATH=${TbusOS}/toolchains/gcc-linaro-${TOOLCHAIN_VERSION}-x86_64_arm-linux-gnueabi/bin:$PATH
 }
 
 set_package_version()
 {
-	source ./other/version.sh $@
+	source ${TbusOS}/scripts/other/version.sh $@
 }
 
 if [ "$OLD_PATH" = "" ]
@@ -49,6 +49,7 @@ case $1 in
         set_TbusOS_env
 		set_qemu_env
 		set_toolchain_env
+		set_package_version --qemu=7.0.0 --kernel=5.15.53 --busybox=1.35.0 --toolchain=7.5.0
 		;;
     --help | -h | *)
         echo "[Usage] ./env.sh"

@@ -10,7 +10,7 @@ pack_rootfs()
 {
 	mkdir -p ${TbusOS}/TbusOS/rootfs/{dev,etc/init.d,lib,proc,sys}
 
-	cp -raf ${TbusOS}/build/busybox-1.35.0/_install/* ${TbusOS}/TbusOS/rootfs
+	cp -raf ${TbusOS}/build/busybox-${BUSYBOX_KERNEL}/_install/* ${TbusOS}/TbusOS/rootfs
 	
 	sudo mknod -m 666 ${TbusOS}/TbusOS/rootfs/dev/tty1 c 4 1
 	sudo mknod -m 666 ${TbusOS}/TbusOS/rootfs/dev/tty2 c 4 2
@@ -37,7 +37,7 @@ pack_rootfs_loop_dev()
 	sudo mount -t ext4 ${TbusOS}/TbusOS/rootfs.ext4 ${TbusOS}/TbusOS/rootfs/ -o loop
 
 	sudo mkdir -p ${TbusOS}/TbusOS/rootfs/{dev,etc/init.d,lib,proc,sys}
-	sudo cp -raf ${TbusOS}/build/busybox-1.35.0/_install/* ${TbusOS}/TbusOS/rootfs
+	sudo cp -raf ${TbusOS}/build/busybox-${BUSYBOX_VERSION}/_install/* ${TbusOS}/TbusOS/rootfs
 
 	sudo cp ${TbusOS}/scripts/other/rcS ${TbusOS}/TbusOS/rootfs/etc/init.d/rcS
 
@@ -51,7 +51,7 @@ install_qemu()
 {
 	mkdir -p ${TbusOS}/TbusOS/qemu
 
-	cp ${TbusOS}/build/qemu-7.0.0/qemu_build/qemu-system-arm ${TbusOS}/TbusOS/qemu
+	cp ${TbusOS}/build/qemu-${QEMU_VERSION}/qemu_build/qemu-system-arm ${TbusOS}/TbusOS/qemu
 }
 
 install_kernel()
@@ -59,8 +59,8 @@ install_kernel()
     if [ ! -d "${TbusOS}/TbusOS/kernel" ]; then
 		mkdir -p ${TbusOS}/TbusOS/kernel
 	fi
-	cp ${TbusOS}/build/linux-5.15.53/arch/arm/boot/zImage ${TbusOS}/TbusOS/kernel
-	cp ${TbusOS}/build/linux-5.15.53/arch/arm/boot/dts/vexpress-v2p-ca9.dtb ${TbusOS}/TbusOS/kernel
+	cp ${TbusOS}/build/linux-${KERNEL_VERSION}/arch/arm/boot/zImage ${TbusOS}/TbusOS/kernel
+	cp ${TbusOS}/build/linux-${KERNEL_VERSION}/arch/arm/boot/dts/vexpress-v2p-ca9.dtb ${TbusOS}/TbusOS/kernel
 }
 
 if [ ! -d "${TbusOS}/TbusOS" ]; then

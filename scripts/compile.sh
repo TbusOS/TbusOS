@@ -6,13 +6,11 @@
 #
 # SPDX-License-Identifier: GPL-2.0
 
-QEMU_VERSION=7.0.0
 QEMU_PACKAGE=qemu-${QEMU_VERSION}.tar.xz
 QEMU_WEB=https://download.qemu.org/${QEMU_PACKAGE}
-KERNEL_VERSION=5.15.53
 KERNEL_PACKAGE=linux-${KERNEL_VERSION}.tar.xz
+if [ ${KERNEL_VERSION:0:1} = "1" ] ||  [ ${KERNEL_VERSION:0:1} = "2" ] ||  [ ${KERNEL_VERSION:0:1} = "3" ]
 KERNEL_WEB=https://mirror.bjtu.edu.cn/kernel/linux/kernel/v5.x/${KERNEL_PACKAGE}
-BUSYBOX_VERSION=1.35.0
 BUSYBOX_PACKAGE=busybox-${BUSYBOX_VERSION}.tar.bz2
 BUSYBOX_WEB=https://busybox.net/downloads/${BUSYBOX_PACKAGE}
 
@@ -36,14 +34,14 @@ compile_kernel()
     if [ ! -f "${TbusOS}/dl/${KERNEL_PACKAGE}" ]; then
         ${TbusOS}/scripts/download_package.sh --kernel ${KERNEL_WEB}
     fi
-    if [ ! -d "${TbusOS}/build/linux-5.15.53" ]; then
+    if [ ! -d "${TbusOS}/build/linux-${KERNEL_VERSION}" ]; then
         cp ${TbusOS}/dl/${KERNEL_PACKAGE} ${TbusOS}/build/
 		tar xvf ${TbusOS}/build/${KERNEL_PACKAGE} -C ${TbusOS}/build/
 		rm ${TbusOS}/build/${KERNEL_PACKAGE}
-		cd ${TbusOS}/build/linux-5.15.53
+		cd ${TbusOS}/build/linux-${KERNEL_VERSION}
 		make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- vexpress_defconfig
     fi
-	cd ${TbusOS}/build/linux-5.15.53
+	cd ${TbusOS}/build/linux-${KERNEL_VERSION}
     make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j8
 }
 
@@ -52,15 +50,15 @@ compile_busybox()
     if [ ! -f "${TbusOS}/dl/${BUSYBOX_PACKAGE}" ]; then
         ${TbusOS}/scripts/download_package.sh --busybox ${BUSYBOX_WEB}
 	fi
-    if [ ! -d "${TbusOS}/build/busybox-1.35.0" ]; then
+    if [ ! -d "${TbusOS}/build/busybox-${BUSYBOX_VERSION}" ]; then
 		cp ${TbusOS}/dl/${BUSYBOX_PACKAGE} ${TbusOS}/build/
 		tar xvf ${TbusOS}/build/${BUSYBOX_PACKAGE} -C ${TbusOS}/build/
 		rm ${TbusOS}/build/${BUSYBOX_PACKAGE}
-		cd ${TbusOS}/build/busybox-1.35.0
+		cd ${TbusOS}/build/busybox-${BUSYBOX_VERSION}
 		patch -p0 Config.in < ${TbusOS}/scripts/other/static.patch
 		make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- defconfig
 	fi
-	cd ${TbusOS}/build/busybox-1.35.0
+	cd ${TbusOS}/build/busybox-${BUSYBOX_KERNEL}
     make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j8
     make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- install
 }
