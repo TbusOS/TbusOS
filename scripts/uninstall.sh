@@ -9,6 +9,7 @@
 uninstall_rootfs()
 {
 	rm -rf ${TbusOS}/TbusOS/rootfs
+	rm ${TbusOS}/TbusOS/rootfs.*
 }
 
 uninstall_qemu()

@@ -46,10 +46,10 @@ case $1 in
 		set_package_version ${@: 2}
 		;;
     --all | -A)
+		set_package_version --qemu=7.0.0 --kernel=5.15.53 --busybox=1.35.0 --toolchain=7.5.0
         set_TbusOS_env
 		set_qemu_env
 		set_toolchain_env
-		set_package_version --qemu=7.0.0 --kernel=5.15.53 --busybox=1.35.0 --toolchain=7.5.0
 		;;
     --help | -h | *)
         echo "[Usage] ./env.sh"

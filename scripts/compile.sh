@@ -9,8 +9,12 @@
 QEMU_PACKAGE=qemu-${QEMU_VERSION}.tar.xz
 QEMU_WEB=https://download.qemu.org/${QEMU_PACKAGE}
 KERNEL_PACKAGE=linux-${KERNEL_VERSION}.tar.xz
-if [ ${KERNEL_VERSION:0:1} = "1" ] ||  [ ${KERNEL_VERSION:0:1} = "2" ] ||  [ ${KERNEL_VERSION:0:1} = "3" ]
-KERNEL_WEB=https://mirror.bjtu.edu.cn/kernel/linux/kernel/v5.x/${KERNEL_PACKAGE}
+if [ ${KERNEL_VERSION:0:1} = "1" ] ||  [ ${KERNEL_VERSION:0:1} = "2" ]
+then
+	KERNEL_WEB=https://mirror.bjtu.edu.cn/kernel/linux/kernel/v${KERNEL_VERSION:0:1}.${KERNEL_VERSION:2:1}/${KERNEL_PACKAGE}
+else
+	KERNEL_WEB=https://mirror.bjtu.edu.cn/kernel/linux/kernel/v${KERNEL_VERSION:0:1}.x/${KERNEL_PACKAGE}
+fi
 BUSYBOX_PACKAGE=busybox-${BUSYBOX_VERSION}.tar.bz2
 BUSYBOX_WEB=https://busybox.net/downloads/${BUSYBOX_PACKAGE}
 
@@ -39,7 +43,9 @@ compile_kernel()
 		tar xvf ${TbusOS}/build/${KERNEL_PACKAGE} -C ${TbusOS}/build/
 		rm ${TbusOS}/build/${KERNEL_PACKAGE}
 		cd ${TbusOS}/build/linux-${KERNEL_VERSION}
-		make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- vexpress_defconfig
+		make ARCH=arm clean
+		make ARCH=arm vexpress_defconfig
+		make ARCH=arm menuconfig
     fi
 	cd ${TbusOS}/build/linux-${KERNEL_VERSION}
     make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j8
@@ -58,7 +64,7 @@ compile_busybox()
 		patch -p0 Config.in < ${TbusOS}/scripts/other/static.patch
 		make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- defconfig
 	fi
-	cd ${TbusOS}/build/busybox-${BUSYBOX_KERNEL}
+	cd ${TbusOS}/build/busybox-${BUSYBOX_VERSION}
     make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j8
     make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- install
 }
@@ -90,4 +96,3 @@ case $1 in
 		echo "-A, --all	compile all"
         ;;
 esac
-

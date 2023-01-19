@@ -10,7 +10,7 @@ pack_rootfs()
 {
 	mkdir -p ${TbusOS}/TbusOS/rootfs/{dev,etc/init.d,lib,proc,sys}
 
-	cp -raf ${TbusOS}/build/busybox-${BUSYBOX_KERNEL}/_install/* ${TbusOS}/TbusOS/rootfs
+	cp -raf ${TbusOS}/build/busybox-${BUSYBOX_VERSION}/_install/* ${TbusOS}/TbusOS/rootfs
 	
 	sudo mknod -m 666 ${TbusOS}/TbusOS/rootfs/dev/tty1 c 4 1
 	sudo mknod -m 666 ${TbusOS}/TbusOS/rootfs/dev/tty2 c 4 2
@@ -23,9 +23,9 @@ pack_rootfs()
 
 	chmod +x ${TbusOS}/TbusOS/rootfs/etc/init.d/rcS
 
-	cd ${TbusOS}/TbusOS/rootfs
+	cd ${TbusOS}/TbusOS/
 
-	find ./ | cpio -o --format=newc > ./rootfs.img
+	find ./rootfs | cpio -o --format=newc > ./rootfs.img
 }
 
 pack_rootfs_loop_dev()
@@ -38,6 +38,13 @@ pack_rootfs_loop_dev()
 
 	sudo mkdir -p ${TbusOS}/TbusOS/rootfs/{dev,etc/init.d,lib,proc,sys}
 	sudo cp -raf ${TbusOS}/build/busybox-${BUSYBOX_VERSION}/_install/* ${TbusOS}/TbusOS/rootfs
+
+	sudo mknod -m 666 ${TbusOS}/TbusOS/rootfs/dev/tty1 c 4 1
+	sudo mknod -m 666 ${TbusOS}/TbusOS/rootfs/dev/tty2 c 4 2
+	sudo mknod -m 666 ${TbusOS}/TbusOS/rootfs/dev/tty3 c 4 3
+	sudo mknod -m 666 ${TbusOS}/TbusOS/rootfs/dev/tty4 c 4 4
+	sudo mknod -m 666 ${TbusOS}/TbusOS/rootfs/dev/console c 5 1
+	sudo mknod -m 666 ${TbusOS}/TbusOS/rootfs/dev/null c 1 3
 
 	sudo cp ${TbusOS}/scripts/other/rcS ${TbusOS}/TbusOS/rootfs/etc/init.d/rcS
 

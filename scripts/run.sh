@@ -11,7 +11,7 @@ MACH=vexpress-a9
 RAM_SIZE=128
 LINUX_DIR=${TbusOS}/TbusOS/kernel
 ARCH=arm
-ROOTFS=${TbusOS}/TbusOS/rootfs
+ROOTFS=${TbusOS}/TbusOS
 CMDLINE_RAM="earlycon root=/dev/ram rdinit=sbin/init console=ttyAMA0"
 CMDLINE_SD="earlycon root=/dev/mmcblk0 rw rootfstype=ext4 rdinit=sbin/init console=ttyAMA0"
 CMDLINE_VIRT="earlycon root=/dev/vda rw rootfstype=ext4 rdinit=sbin/init console=ttyAMA0"

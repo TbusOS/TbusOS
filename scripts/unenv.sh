@@ -6,7 +6,7 @@
 #
 # SPDX-License-Identifier: GPL-2.0
 
-if [ "$OLD_PATH" = "" ]
+if [ "$OLD_PATH" != "" ]
 then
 	export PATH=$OLD_PATH
 fi

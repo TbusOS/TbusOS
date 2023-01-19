@@ -44,7 +44,7 @@ clean_busybox()
 	make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- clean
 }
 
-clean_toolchain()
+distclean_toolchain()
 {
 	rm -rf ${TbusOS}/toolchains/gcc-linaro-${TOOLCHAIN_VERSION}-x86_64_arm-linux-gnueabi
 }

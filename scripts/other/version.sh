@@ -6,12 +6,19 @@
 #
 # SPDX-License-Identifier: GPL-2.0
 
-declare -A linaro_map
+declare -A linaro_pack_map
 
-linaro_map["7.5.0"]="7.5-2019.12"
-linaro_map["7.4.1"]="7.4-2019.02"
+linaro_pack_map["7.5.0"]="7.5.0-2019.12"
+linaro_pack_map["7.4.1"]="7.4.1-2019.02"
+linaro_pack_map["4.9"]="4.9-2016.02"
 
-SHELL_ARGS=`getopt -o h --long qemu:,kernel:,busyxbox:,toolchain:,help -- "$@"`
+declare -A linaro_web_map
+
+linaro_web_map["7.5.0"]="7.5-2019.12"
+linaro_web_map["7.4.1"]="7.4-2019.02"
+linaro_web_map["4.9"]="4.9-2016.02"
+
+SHELL_ARGS=`getopt -o h --long qemu:,kernel:,busybox:,toolchain:,help -- "$@"`
 
 eval set -- "${SHELL_ARGS}"
 
@@ -31,8 +38,14 @@ do
 			shift 2
 			;;
 		--toolchain)
-			for $2 in ${!linaro_map[*]};do
-				export TOOLCHAIN_VERSION=${linaro[$2]}
+			for key in ${!linaro_web_map[@]}
+			do
+				if [ "$2" == "$key" ]
+				then
+					export TOOLCHAIN_WEB=${linaro_web_map[$2]}
+					export TOOLCHAIN_VERSION=${linaro_pack_map[$2]}
+					break
+				fi
 			done
 			shift 2
 			;;
