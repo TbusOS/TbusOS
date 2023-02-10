@@ -7,7 +7,6 @@
 # SPDX-License-Identifier: GPL-2.0
 
 TOOLCHAIN_PACKAGE=gcc-linaro-${TOOLCHAIN_VERSION}-x86_64_arm-linux-gnueabi.tar.xz
-TOOLCHAIN_WEB=https://releases.linaro.org/components/toolchain/binaries/${TOOLCHAIN_VERSION}/arm-linux-gnueabi/${TOOLCHAIN_PACKAGE}
 
 download_toolchain()
 {
