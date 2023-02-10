@@ -13,7 +13,7 @@ download_toolchain()
     if [ ! -f "${TbusOS}/dl/${TOOLCHAIN_PACKAGE}" ]; then
         ${TbusOS}/scripts/download_package.sh --toolchain
     fi
-    if [ ! -d "${TbusOS}/toolchains/gcc-linaro-7.5.0-2019.12-x86_64_arm-linux-gnueabi" ]; then
+    if [ ! -d "${TbusOS}/toolchains/gcc-linaro-{TOOLCHAIN_PACKAGE}-x86_64_arm-linux-gnueabi" ]; then
         cp ${TbusOS}/dl/${TOOLCHAIN_PACKAGE} ${TbusOS}/toolchains/
 		tar xvf ${TbusOS}/toolchains/${TOOLCHAIN_PACKAGE} -C ${TbusOS}/toolchains/
 		rm ${TbusOS}/toolchains/${TOOLCHAIN_PACKAGE}

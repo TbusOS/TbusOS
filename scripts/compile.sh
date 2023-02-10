@@ -43,9 +43,9 @@ compile_kernel()
 		tar xvf ${TbusOS}/build/${KERNEL_PACKAGE} -C ${TbusOS}/build/
 		rm ${TbusOS}/build/${KERNEL_PACKAGE}
 		cd ${TbusOS}/build/linux-${KERNEL_VERSION}
-		make ARCH=arm clean
-		make ARCH=arm vexpress_defconfig
-		make ARCH=arm menuconfig
+		make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- clean
+		make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- vexpress_defconfig
+		make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- menuconfig
     fi
 	cd ${TbusOS}/build/linux-${KERNEL_VERSION}
     make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j8
