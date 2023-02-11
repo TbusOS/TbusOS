@@ -8,7 +8,7 @@
 
 set_TbusOS_env()
 {
-	export TbusOS=$PWD/..
+	export TbusOS=$PWD
 }
 
 set_qemu_env()

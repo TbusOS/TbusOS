@@ -91,11 +91,17 @@ case $1 in
     --kernel)
         install_kernel
         ;;
+	-A | --all)
+		install_kernel
+		install_qemu
+		pack_rootfs_loop_dev
+		;;
     --help | -h | *)
         echo "[Usage] ./install.sh"
         echo "--rootfs	install rootfs"
 		echo "--rootfs_loop_dev   install loop device rootfs"
         echo "--qemu		install qemu"
         echo "--kernel		install kernel"
+		echo "-A, --all	install qemu, kernel and loop device rootfs"
         ;;
 esac

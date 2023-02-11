@@ -8,14 +8,14 @@
 
 
 How to use:
-1.Run "./scripts/apt.sh" install the necessary packages.  
-2.Run "source ./scripts/env.sh" to set environment variables.  
-3.Run "./scripts/toolchain.sh" to download and set toolchain.  
-4.Run "./scripts/compile.sh" to compile qemu, kernel, busybox.  
-5.Run "./scripts/install.sh" to install to TbusOS dir.  
-6.Run "./scripts/run.sh" to run TbusOS.  
-7.Run "./scripts/clean.sh" to clean what you compile.  
-8.Run "./scripts/uninstall.sh" to uninstall TbusOS.  
+1.Run "./scripts/apt.sh" install the necessary packages. 
+2.Run "source ./scripts/env.sh -A" to set environment variables.
+3.Run "./scripts/download_package.sh -A" to download all packages that TbusOS needed.
+4.Run "./scripts/toolchains.sh --download" to unzip toolchains package.
+5.Run "./scripts/compile.sh -A" to compile qemu, kernel, busybox.
+6.Run "./scripts/install.sh -A" to install qemu, kernel and loop device rootfs.
+7.Run "./scripts/run.sh --virt" to run TbusOS by virt.
+
 
 Currently supported functions:  
 1.  
