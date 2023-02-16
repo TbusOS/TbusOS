@@ -25,3 +25,22 @@ Scripts function:
 6.clean.sh: Clean or distclean package.
 7.env.sh: set qemu, toolchain, TbusOS and package version env. Now, toolchain only support 7.5, 7.4.1, 4.9. Kernel not support which have not vepress_deconfig.
 8.config.sh: Run kernel, busybox menuconfig.
+9.run.sh: Run TbusOS. If you want use sd as mounted device, you should run install.sh by --rootfs. If you want use ram or virt as mounted device, you should run install.sh by --rootfs_loop_dev.
+
+Example:
+1.If you want to compile kernel that version is 4.14.139.
+(1) source ./scripts/env.sh -A
+(2) source ./scripts/env.sh --kernel=4.14.139
+(3) ./compile.sh --kernel
+
+2.If you want to run TbusOS by sd.
+(1) ./install.sh --rootfs
+(2) ./run.sh --sd
+
+3.If you want to run TbusOS by virt or ram.
+(1) ./install.sh --rootfs_loop_dev
+(2) ./run.sh --virt.	Or	./run.sh --ram.
+
+4.If you want to set multicore startup.
+(1) ./run.sh --virt --smp=n
+(2) For more configuration, run "./run.sh -h"
