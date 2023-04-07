@@ -9,7 +9,7 @@
 ---------------------------------------------------
 ```
 
-
+![running_display](scripts/other/running_display.png)
 
 How to run:  
 1.Run "./scripts/apt.sh" install the necessary packages.   
