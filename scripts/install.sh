@@ -37,6 +37,11 @@ pack_rootfs_loop_dev()
 	sudo mount -t ext4 ${TbusOS}/TbusOS/rootfs.ext4 ${TbusOS}/TbusOS/rootfs/ -o loop
 
 	sudo mkdir -p ${TbusOS}/TbusOS/rootfs/{dev,etc/init.d,lib,proc,sys}
+	sudo cp -raf ${TbusOS}/toolchains/gcc-linaro-${TOOLCHAIN_VERSION}-x86_64_arm-linux-gnueabi/arm-linux-gnueabi/libc/lib/ld-2.25.so ${TbusOS}/TbusOS/rootfs/lib/
+	sudo cp -raf ${TbusOS}/toolchains/gcc-linaro-${TOOLCHAIN_VERSION}-x86_64_arm-linux-gnueabi/arm-linux-gnueabi/libc/lib/ld-linux.so.3 ${TbusOS}/TbusOS/rootfs/lib/
+	sudo cp -raf ${TbusOS}/toolchains/gcc-linaro-${TOOLCHAIN_VERSION}-x86_64_arm-linux-gnueabi/arm-linux-gnueabi/libc/lib/libc-2.25.so ${TbusOS}/TbusOS/rootfs/lib/
+	sudo cp -raf ${TbusOS}/toolchains/gcc-linaro-${TOOLCHAIN_VERSION}-x86_64_arm-linux-gnueabi/arm-linux-gnueabi/libc/lib/libc.so.6 ${TbusOS}/TbusOS/rootfs/lib/
+	
 	sudo cp -raf ${TbusOS}/build/busybox-${BUSYBOX_VERSION}/_install/* ${TbusOS}/TbusOS/rootfs
 
 	sudo mknod -m 666 ${TbusOS}/TbusOS/rootfs/dev/tty1 c 4 1

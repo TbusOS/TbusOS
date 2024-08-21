@@ -72,6 +72,7 @@ do_run()
     -kernel ${LINUX_DIR}/zImage \
     -dtb ${LINUX_DIR}/vexpress-v2p-ca9.dtb \
     -nographic \
+	-smp 4 \
 	${QEMU_DEVICE_ARG} \
 	-append "${CMDLINE}"
 }
